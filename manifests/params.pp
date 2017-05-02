@@ -1,15 +1,41 @@
-# = Class: elasticsearch::params
+# Class: elasticsearch::params
 #
-# This class provides a number of parameters.
-#
-
 class elasticsearch::params {
-
-  $package_elasticsearch_version        = "elasticsearch"
-  $package_ensure                       = "installed"
-  $elasticsearch_service_name           = "elasticsearch"
-  $elasticsearch_service_ensure         = "running"
-  $elasticsearch_service_enable         = true
-  $elasticsearch_service_hasstatus      = true
-
+  $package_elasticsearch_version                = 'elasticsearch'
+  $package_ensure                               = 'installed'
+  $elasticsearch_service_name                   = 'elasticsearch'
+  $elasticsearch_service_ensure                 = 'running'
+  $elasticsearch_service_enable                 = true
+  $elasticsearch_service_hasstatus              = true
+  $action_destructive_requires_name             = undef
+  $bootstrap_memory_lock                        = undef
+  $bootstrap_mlockall                           = undef
+  $cluster_enabled                              = false
+  $cluster_name                                 = 'cluster_elasticsearch'
+  $discovery_zen_minimum_master_nodes           = undef
+  $discovery_zen_ping_multicast_enabled         = undef
+  $discovery_zen_ping_unicast_hosts             = undef
+  $gateway_expected_nodes                       = '2'
+  $gateway_recover_after_nodes                  = '2'
+  $gateway_recover_after_time                   = '5m'
+  $http_cors_allow_credentials                  = true
+  $http_cors_allow_origin                       = '/.*/'
+  $http_cors_enabled                            = true
+  $http_port                                    = undef
+  $index_merge_scheduler_max_thread_count       = undef
+  $index_number_of_replicas                     = undef
+  $index_number_of_shards                       = undef
+  $indices_store_throttle_max_bytes_per_sec     = '50mb'
+  $network_host                                 = '0.0.0.0'
+  $node_attr_rack                               = undef
+  $node_master                                  = undef
+  $node_name                                    = undef
+  $path_data                                    = undef
+  $path_logs                                    = undef
+  $config_dir                                   = '/etc/elasticsearch/'
+  $config_file                                  = '/etc/elasticsearch/elasticsearch.yml'
+  $config_file_mode                             = '660'
+  $config_file_owner                            = 'root'
+  $config_file_group                            = 'elasticsearch'
+  $config_file_template                         = 'elasticsearch/elasticsearch.yml.erb'
 }
