@@ -1,0 +1,165 @@
+# ======================== Elasticsearch Configuration =========================
+# NOTE: Elasticsearch comes with reasonable defaults for most settings.
+#       Before you set out to tweak and tune the configuration, make sure you
+#       understand what are you trying to accomplish and the consequences.
+#
+# The primary way of configuring a node is via this file. This template lists
+# the most important settings you may want to configure for a production cluster.
+#
+# Please consult the documentation for further information on configuration options:
+# https://www.elastic.co/guide/en/elasticsearch/reference/index.html
+#
+# ---------------------------------- Cluster -----------------------------------
+# Use a descriptive name for your cluster:
+#
+<% if @cluster_enabled == true -%>
+ cluster.name:  <%= @cluster_name %>
+<% else -%>
+ # cluster.name: my-application
+<% end -%>
+#
+# ------------------------------------ Node ------------------------------------
+# Use a descriptive name for the node:
+#
+<% if @cluster_enabled == true -%>
+ node.name: <%= @node_name %>
+<% else -%>
+ # node.name: node-1
+<% end -%>
+#
+# Add custom attributes to the node:
+<% if @cluster_enabled == true -%>
+ node.attr.rack: <%= @node_attr_rack %>
+<% else -%>
+ # node.attr.rack: r1
+<% end -%>
+#
+<% if @cluster_enabled == true -%>
+ node.master: <%= @node_master %>
+<% else -%>
+ # node.master: true
+<% end -%>
+# ----------------------------------- Paths ------------------------------------
+# Path to directory where to store the data (separate multiple locations by comma):
+#
+# path.data: /path/to/data
+#
+# Path to log files:
+#
+# path.logs: /path/to/logs
+#
+# ----------------------------------- Memory -----------------------------------
+# Lock the memory on startup:
+#
+bootstrap.memory_lock: <%= @bootstrap_memory_lock %>
+#
+# Make sure that the heap size is set to about half the memory available
+# on the system and that the owner of the process is allowed to use this
+# limit.
+#
+# Elasticsearch performs poorly when the system is swapping the memory.
+#
+# ---------------------------------- Network -----------------------------------
+# Set the bind address to a specific IP (IPv4 or IPv6):
+#
+network.host: <%= @network_host %>
+# network.host: 192.168.0.1
+#
+http.cors.enabled: <%= @http_cors_enabled %>
+# http.cors.enabled: true
+#
+http.cors.allow-origin: <%= @http_cors_allow_origin %>
+# http.cors.allow-origin: /.*/
+#
+http.cors.allow-credentials: <%= @http_cors_allow_credentials %>
+# http.cors.allow-credentials: true
+#
+# Set a custom port for HTTP:
+#
+http.port: <%= @http_port %>
+# http.port: 9200
+#
+# For more information, consult the network module documentation.
+#
+# --------------------------------- Discovery ----------------------------------
+# Pass an initial list of hosts to perform discovery when new node is started:
+# The default list of hosts is ["127.0.0.1", "[::1]"]
+#
+<% if @cluster_enabled == true -%>
+# La forma correcta de definir los hots que conforman el cluster es ["host1", "host2"] se debe respetar las comillas dobles y los corchetes.
+ discovery.zen.ping.unicast.hosts: [ <%= @discovery_zen_ping_unicast_hosts %> ]
+<% else -%>
+ # discovery.zen.ping.unicast.hosts: ["host1", "host2"]
+<% end -%>
+#
+# Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
+#
+<% if @cluster_enabled == true -%>
+ discovery.zen.minimum_master_nodes: <%= @discovery_zenr_minimum_master_nodes %>
+<% else -%>
+ # discovery.zen.minimum_master_nodes: 2
+<% end -%>
+#
+<% if @cluster_enabled == true -%>
+ discovery.zen.ping.multicast.enabled: <%= @discovery_zen_ping_multicast_enabled %>
+<% else -%>
+ # discovery.zen.ping.multicast.enabled: false
+<% end -%>
+#
+# For more information, consult the zen discovery module documentation.
+#
+# ---------------------------------- Gateway -----------------------------------
+# Block initial recovery after a full cluster restart until N nodes are started:
+#
+<% if @cluster_enabled == true -%>
+ gateway.recover_after_nodes: <%= @gateway_recover_after_nodes %>
+<% else -%>
+ # gateway.recover_after_nodes: 3
+<% end -%>
+#
+<% if @cluster_enabled == true -%>
+ gateway.recover_after_time: <%= @gateway_recover_after_time %>
+<% else -%>
+ # gateway.recover_after_time: 5m
+<% end -%>
+#
+<% if @cluster_enabled == true -%>
+ gateway.expected_nodes: <%= @gateway_expected_nodes %>
+<% else -%>
+ # gateway.expected_nodes: 2
+<% end -%>
+#
+# For more information, consult the gateway module documentation.
+#
+# ---------------------------------- Various -----------------------------------
+# Require explicit names when deleting indices:
+#
+action.destructive_requires_name: <%= @action_destructive_requires_name %>
+# action.destructive_requires_name: true
+#
+<% if @cluster_enabled == true -%>
+ index.number_of_shards: <%= @index_number_of_shards %>
+<% else -%>
+ # index.number_of_shards: 5
+<% end -%>
+#
+<% if @cluster_enabled == true -%>
+ index.number_of_replicas: <%= @index_number_of_replicas %>
+<% else -%>
+ # index.number_of_replicas: 3
+<% end -%>
+#
+<% if @cluster_enabled == true -%>
+ index.merge.scheduler.max_thread_count: <%= @index_merge_scheduler_max_thread_count %>
+<% else -%>
+ # index.merge.scheduler.max_thread_count: 1
+<% end -%>
+#
+<% if @cluster_enabled == true -%>
+ indices.store.throttle.max_bytes_per_sec: <%= @indices_store_throttle_max_bytes_per_sec %>
+<% else -%>
+ # indices.store.throttle.max_bytes_per_sec:  50mb
+<% end -%>
+#
+bootstrap.mlockall: <%= @bootstrap_mlockall %>
+# bootstrap.mlockall: true
