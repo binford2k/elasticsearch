@@ -2,7 +2,7 @@
 #
 # This class installs the application.
 #
-class elasticsearch::install inherits elasticsearch::params {
+class elasticsearch::install {
 
   $package_elasticsearch_version        = $::elasticsearch::params::package_elasticsearch_version
   $package_ensure                       = $::elasticsearch::params::package_ensure
